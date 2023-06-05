@@ -15,6 +15,8 @@ function Home() {
             </div>
             <div>
                 <Card/>
+                <Card/>
+                <Card/>
             </div>
             <div>
                 <Footer />

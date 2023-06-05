@@ -7,7 +7,7 @@ function Card() {
                 className="card mt-3"
                 style={{ width: "18rem", maxHeight: "360px" }}
             >
-                <img className="card-img-top" src="..." alt="Card image cap" />
+                <img className="card-img-top" src="https://source.unsplash.com/random/10×10/?burger" alt="Card image cap" />
                 <div className="card-body">
                     <h5 className="card-title">Card title</h5>
                     <p className="card-text">Some import Text here</p>

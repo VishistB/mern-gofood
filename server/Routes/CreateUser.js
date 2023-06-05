@@ -2,10 +2,21 @@ const express = require('express');
 const { default: mongoose } = require('mongoose');
 const router = express.Router();
 require('../schema/User')
+const { body, validationResult } = require('express-validator');
 
 const user=mongoose.model("user")
 
-router.post('/createuser',async(req,resp)=>{
+router.post('/createuser',
+body('email').isEmail(),
+body('password').isLength({min:2}),
+body('password','incorrect password').isLength({min:4}), //incorrect pwd message for validator
+async(req,res)=>{
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        return res.send({ errors: result.array() });
+    }
+
+    
     try {
         await user.create({
             name: req.body.name,
@@ -14,11 +25,11 @@ router.post('/createuser',async(req,resp)=>{
             password:req.body.password
         })
         
-        resp.json({success:true});
+        res.json({success:true});
 
     } catch (error) {
         console.log(error);
-        resp.json({success:false});
+        res.json({success:false});
     }
 })
 
