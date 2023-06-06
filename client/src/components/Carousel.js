@@ -2,7 +2,7 @@ import React from "react";
 
 function Carousel() {
     return (
-        <div className="d-flex w-100" style={{"background":"url('https://source.unsplash.com/random/100×100/?burger')", "background-size":"cover", "height":"50vh", "filter": "brightness(50%)"}}>
+        <div className="d-flex w-100" style={{"background":"url('https://source.unsplash.com/random/100×100/?burger')", "backgroundSize":"cover", "height":"50vh", "filter": "brightness(50%)"}}>
             <div className="container w-80" style={{"margin":"auto"}}>
             <form className="form-inline">
               <div style={{"display":"flex"}}>
