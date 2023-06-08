@@ -1,21 +1,37 @@
 const mongoose = require("mongoose");
 require("./schema/fooditems");
+require("./schema/foodcategory");
 
 mongo_url =
     "mongodb+srv://VishistB:gofoodMDB123@cluster0.nvpxguz.mongodb.net/gofoodmern?retryWrites=true&w=majority";
-    const fetchData = () => {
-        const FoodItem = mongoose.model("food_items");
-        FoodItem.find({})
-          .then((data) => {
-            console.log('Fetched data:');
+const fetchData = () => {
+    const FoodItem = mongoose.model("food_items");
+    const FoodCategory = mongoose.model("foodCategory");
+    global.foodArray = [];
+    global.foodCategoryArray = [];
+    FoodItem.find({})
+        .then((data) => {
+            console.log("Fetched food item data");
             data.forEach((item) => {
-              console.log(item);
+                global.foodArray.push(item);
+                // console.log(foodArray);
             });
-          })
-          .catch((error) => {
-            console.log('Error fetching data:', error);
-          });
-    };
+        })
+        .catch((error) => {
+            console.log("Error fetching data:", error);
+        });
+    FoodCategory.find({})
+        .then((data) => {
+            console.log("Fetched food category data");
+            data.forEach((item) => {
+                global.foodCategoryArray.push(item);
+                // console.log(foodArray);
+            });
+        })
+        .catch((error) => {
+            console.log("Error fetching data:", error);
+        });
+};
 
 const mongoDB = () => {
     mongoose
@@ -25,7 +41,7 @@ const mongoDB = () => {
         })
         .then(() => {
             console.log("MongoDB connected");
-            // fetchData();
+            fetchData();
         })
         .catch((error) => {
             console.error("MongoDB connection error:", error);

@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-function Card() {
+function Card({foodName, options,imgsrc}) {
+    const[modifiedFoodName,setmodifiedFoodName]=useState("");
+    let fudoptions = options;
+    const priceOptions = Object.keys(fudoptions).filter((key) => key !== "_id");
+
     return (
         <div>
             <div
                 className="card mt-3"
                 style={{ width: "18rem", maxHeight: "360px" }}
-            >
-                <img className="card-img-top" src="https://source.unsplash.com/random/10×10/?burger" alt="Card image cap" />
+            >   
+                <div className="container w-100 h-40 p-0 overflow-hidden">
+                    <img className="card-img-top" src={imgsrc} alt="Card image cap" />
+                </div>
                 <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">Some import Text here</p>
+                    <h5 className="card-title">{foodName}</h5>
+                    {/* <p className="card-text">Some import Text here</p> */}
                     <div className="container w-100">
                         <select className="m-2 h-100 bg-sucess rounded">
                             {Array.from(Array(6), (e, i) => {
@@ -23,8 +29,11 @@ function Card() {
                         </select>
 
                         <select className="m-2 h-100 bg-sucess rounded">
-                            <option value="half">Half</option>
-                            <option value="full">Full</option>
+                            {priceOptions.map((data)=>{
+                                return(
+                                    <option key={data} value={data}>{data}</option>
+                                )
+                            })}
                         </select>
                         <div className="d-inline h-100 fs-5">Total Price</div>
                     </div>
