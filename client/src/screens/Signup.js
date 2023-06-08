@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 function Signup() {
     const baseUrl = "http://localhost:8000/api";
 
-    const [post, setPost] = React.useState(null);
+    let navigate=useNavigate();
+    // const [post, setPost] = React.useState(null);
     const [credentials, setCredentials] = useState({
         name: "",
         location: "",
@@ -14,7 +15,7 @@ function Signup() {
     });
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(credentials.name)
+        // console.log(credentials.name)
         axios
             .post(baseUrl + "/createuser", {
                 name: credentials.name,
@@ -23,7 +24,15 @@ function Signup() {
                 password: credentials.password,
             })
             .then((Response) => {
-                setPost(Response);
+                // setPost(Response.data);
+                const resp = Response.data
+                console.log(resp);
+                if(resp.errors==="Already exists"){
+                    alert("user exists")
+                }
+                else if(!resp.success){
+                    alert("enter correct credentials")
+                }
             });
     };
     const handleChange = (event) => {
