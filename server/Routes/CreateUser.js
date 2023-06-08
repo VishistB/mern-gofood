@@ -3,8 +3,13 @@ const { default: mongoose } = require("mongoose");
 const router = express.Router();
 require("../schema/User");
 const { body, validationResult } = require("express-validator");
+const bcrypt = require('bcryptjs'); 
+const jwt = require('jsonwebtoken')
 
 const user = mongoose.model("user");
+
+const jwtSecret="wejfloawiu3o2iur98u2893ru2,ruu2983ru,p23ru,81io4tjoi"
+
 
 router.post(
     "/createuser",
@@ -16,7 +21,8 @@ router.post(
         if (!result.isEmpty()) {
             return res.send({ errors: result.array() });
         }
-
+        const salt = await bcrypt.genSalt(10);
+        let secPassword = await bcrypt.hash(req.body.password,salt);
         let email = req.body.email;
         try {
             let oldUser = await user.findOne({ email });
@@ -27,7 +33,7 @@ router.post(
                 name: req.body.name,
                 location: req.body.location,
                 email: req.body.email,
-                password: req.body.password,
+                password: secPassword,
             });
 
             res.json({ success: true });
@@ -54,10 +60,17 @@ router.post(
             if (!userData) {
                 return res.status(400).json({ errors: "Wrong Credentials" });
             }
-            if (req.body.password !== userData.password) {
+            const pwdCompare=bcrypt.compare(req.body.password,userData.password)
+            if (!pwdCompare) {
                 return res.status(400).json({ errors: "Wrong Credentials" });
             }
-            return res.json({ success: true });
+            const data = {
+                user:{
+                    id:userData.id,
+                }
+            }
+            const authToken = jwt.sign(data,jwtSecret)
+            return res.json({ success: true ,authToken:authToken });
         } catch (error) {
             return res.json({ success: false });
         }
