@@ -11,9 +11,9 @@ function Card({foodName, options,imgsrc}) {
                 className="card mt-3"
                 style={{ width: "18rem", maxHeight: "360px" }}
             >   
-                <div className="container w-100 h-40 p-0 overflow-hidden">
-                    <img className="card-img-top" src={imgsrc} alt="Card image cap" />
-                </div>
+                {/* <div className="container w-100 h-40 p-0 overflow-hidden"> */}
+                    <img className="card-img-top" src={imgsrc} alt="Card image cap" style={{height:"200px",objectFit:"fill"}} />
+                {/* </div> */}
                 <div className="card-body">
                     <h5 className="card-title">{foodName}</h5>
                     {/* <p className="card-text">Some import Text here</p> */}
