@@ -4,7 +4,9 @@ function Card({foodName, options,imgsrc}) {
     const[modifiedFoodName,setmodifiedFoodName]=useState("");
     let fudoptions = options;
     const priceOptions = Object.keys(fudoptions).filter((key) => key !== "_id");
+    const handleAddToCart = () => {
 
+    }
     return (
         <div>
             <div
@@ -12,7 +14,7 @@ function Card({foodName, options,imgsrc}) {
                 style={{ width: "18rem", maxHeight: "360px" }}
             >   
                 {/* <div className="container w-100 h-40 p-0 overflow-hidden"> */}
-                    <img className="card-img-top" src={imgsrc} alt="Card image cap" style={{height:"200px",objectFit:"fill"}} />
+                    <img className="card-img-top" src={imgsrc} alt="Card image cap" style={{height:"150px",objectFit:"fill"}} />
                 {/* </div> */}
                 <div className="card-body">
                     <h5 className="card-title">{foodName}</h5>
@@ -37,6 +39,8 @@ function Card({foodName, options,imgsrc}) {
                         </select>
                         <div className="d-inline h-100 fs-5">Total Price</div>
                     </div>
+                    <hr/>
+                    <button className="btn btn-success justify-center ms-2" onClick={handleAddToCart}>Add to Card</button>
                 </div>
             </div>
         </div>

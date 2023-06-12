@@ -62,8 +62,15 @@ function Navbar() {
                                 </Link>
                             </div>
                         ) : (
+                            <div className="d-flex ">
+                            
+                            <div className="btn bg-white text-success  mx-1" onClick={handleLogout}>
+                                My Cart
+                            </div>
                             <div className="btn bg-white text-danger  mx-1" onClick={handleLogout}>
                                 Logout
+                            </div>
+
                             </div>
                         )}
                     </ul>
