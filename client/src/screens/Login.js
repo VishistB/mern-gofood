@@ -21,12 +21,13 @@ function Login() {
             .then((Response) => {
                 // setPost(Response.data);
                 const resp = Response.data
-                console.log(resp);
+                const aToken=resp.authToken
+                console.log('hi',Response.data);
                 if(!resp.success){
                     alert('Email or password is wrong')
                 }
                 if(resp.success){
-                    localStorage.setItem("authtoken",json.authToken);
+                    localStorage.setItem("authToken",aToken);
                     navigate('/')
                 }
             });
