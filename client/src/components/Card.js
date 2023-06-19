@@ -30,8 +30,8 @@ function Card(props) {
                 <div className="card-body">
                     <h5 className="card-title">{props.foodItem.name}</h5>
                     {/* <p className="card-text">Some import Text here</p> */}
-                    <div className="container w-100" onChange={(e)=>setQty(e.target.value)}>
-                        <select className="m-2 h-100 bg-sucess rounded">
+                    <div className="container w-100">
+                        <select className="m-2 h-100 bg-sucess rounded" onChange={(e)=>setQty(e.target.value)}>
                             {Array.from(Array(6), (e, i) => {
                                 return (
                                     <option key={i + 1} value={i + 1}>
