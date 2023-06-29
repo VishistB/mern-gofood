@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart, useDispatchCart } from "../components/ContextReducer";
+import axios from "axios";
 export default function Cart() {
     let data = useCart();
     let dispatch = useDispatchCart();
@@ -12,26 +13,25 @@ export default function Cart() {
             </div>
         );
     }
-    const handleCheckOut = async () => {
+    const handleCheckOut = () => {
         let userEmail = localStorage.getItem("userEmail");
-        let response = await fetch("http://localhost:8000/api/auth/orderData", {
-            // credentials: 'include',
-            // Origin:"http://localhost:3000/login",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                order_data: data,
-                email: userEmail,
-                order_date: new Date().toDateString(),
-            }),
-        });
-        console.log("JSON RESPONSE:::::", response.status);
-        if (response.status === 200) {
-            dispatch({ type: "DROP" });
-        }
-    };
+        axios
+          .post("http://localhost:8000/api/OrderData", {
+            order_data: data,
+            email: userEmail,
+            order_date: new Date().toDateString(),
+          })
+          .then((response) => {
+            console.log("Axios Response:", response.status);
+      
+            if (response.status === 200) {
+              dispatch({ type: "DROP" });
+            }
+          })
+          .catch((error) => {
+            console.error("Axios Error:", error);
+          });
+      };
 
     let totalPrice = data.reduce((total, food) => total + food.price, 0);
     return (

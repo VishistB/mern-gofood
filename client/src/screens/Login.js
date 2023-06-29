@@ -27,6 +27,7 @@ function Login() {
                     alert('Email or password is wrong')
                 }
                 if(resp.success){
+                    localStorage.setItem("userEmail",credentials.email);
                     localStorage.setItem("authToken",aToken);
                     navigate('/')
                 }
