@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, link, useNavigate } from "react-router-dom";
+import Modal from "./Modal";
+import Cart from "../screens/Cart";
 
 function Navbar() {
     // useEffect(() => {
     //     console.log("hi", localStorage.getItem("authToken"));
     // }, []);
+    const[cartView,setCartView]=useState(false);
     const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem("authToken");
@@ -64,9 +67,11 @@ function Navbar() {
                         ) : (
                             <div className="d-flex ">
                             
-                            <div className="btn bg-white text-success  mx-1" onClick={handleLogout}>
-                                My Cart
+                            <div className="btn bg-white text-success  mx-1" onClick={()=>{setCartView(true)}}>
+                                My Cart {" "}
+                                <span class="badge badge-pill badge-danger" style={{backgroundColor:"red", borderRadius:"50%", margin:"0 0 0 3px", transform:"scale(0.8)"}}>1</span>
                             </div>
+                            {cartView?<Modal onClose={()=>{setCartView(false)}}><Cart/></Modal>:null}
                             <div className="btn bg-white text-danger  mx-1" onClick={handleLogout}>
                                 Logout
                             </div>
